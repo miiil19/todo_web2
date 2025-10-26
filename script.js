@@ -53,7 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderTasks() {
-        taskList.innerHTML = "";
+        while (taskList.firstChild) {
+	        taskList.removeChild(taskList.firstChild);
+        }        
         const filtered = tasks
             .filter(task => {
                 if (statusFilter.value == "done") return task.completed;
@@ -111,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 cancelBtn.textContent = "✗";
                 cancelBtn.className = "btn-delete";
 
-                li.innerHTML = "";
+                li.replaceChildren(editInput, editDate, saveBtn, cancelBtn);
                 li.append(editInput, editDate, saveBtn, cancelBtn);
 
                 saveBtn.onclick = () => {
@@ -211,4 +213,5 @@ document.addEventListener("DOMContentLoaded", () => {
         ).element;
     }
     renderTasks();
+
 });
